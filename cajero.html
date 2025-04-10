@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cajero Automático</title>
+  <style>
+    body {
+      background: #111;
+      color: #0ff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .cajero {
+      background: #222;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #0ff;
+      width: 300px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #000;
+      color: #0ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #0ff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0cc;
+    }
+
+    .saldo {
+      margin-top: 15px;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cajero">
+    <h2>💳 Cajero Automático</h2>
+
+    <input type="number" id="monto" placeholder="Ingresa un monto">
+    
+    <button onclick="depositar()">Depositar</button>
+    <button onclick="retirar()">Retirar</button>
+    
+    <div class="saldo" id="saldo">Saldo: $0</div>
+  </div>
+
+  <script>
+    let saldo = 0;
+
+    function actualizarSaldo() {
+      document.getElementById('saldo').innerText = `Saldo: $${saldo}`;
+    }
+
+    function depositar() {
+      const monto = parseFloat(document.getElementById('monto').value);
+      if (!isNaN(monto) && monto > 0) {
+        saldo += monto;
+        actualizarSaldo();
+      } else {
+        alert('Ingresa un monto válido para depositar.');
+      }
+    }
+
+    function retirar() {
+      const monto = parseFloat(document.getElementById('monto').value);
+      if (!isNaN(monto) && monto > 0) {
+        if (monto <= saldo) {
+          saldo -= monto;
+          actualizarSaldo();
+        } else {
+          alert('Fondos insuficientes.');
+        }
+      } else {
+        alert('Ingresa un monto válido para retirar.');
+      }
+    }
+
+    actualizarSaldo();
+  </script>
+
+</body>
+</html>
